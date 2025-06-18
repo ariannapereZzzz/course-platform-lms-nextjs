@@ -1,7 +1,6 @@
 import { integer, pgEnum, pgTable, text, timestamp} from "drizzle-orm/pg-core";
 import { createdAt, id, updatedAt } from "../schemaHelpers";
 import { relations } from "drizzle-orm";
-import { CourseProductTable } from "./courseProduct";
 import { UserCourseAccessTable } from "./userCourseAccess";
 
 export const userRoles = ["user", "admin"] as const
@@ -21,7 +20,6 @@ export const UserTable = pgTable("users", {
   updatedAt,
 })
 
-export const UserRelationships = relations(UserTable, ({one,many}) => ({
-  courseProducts: many(CourseProductTable),
-  userCourseAccess: one(UserCourseAccessTable)
+export const UserRelationships = relations(UserTable, ({many}) => ({
+  courseAccess: many(UserCourseAccessTable)
 }))

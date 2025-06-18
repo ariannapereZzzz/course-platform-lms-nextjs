@@ -6,10 +6,15 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.22.0",
     "@t3-oss/env-nextjs": "^0.13.8",
+    "docker": "^1.0.0",
     "drizzle-orm": "^0.44.2",
     "next": "15.4.0-canary.83",
     "pg": "^8.16.0",

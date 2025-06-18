@@ -1,0 +1,1 @@
+ALTER TABLE "users_course_access" DROP COLUMN "id";
