@@ -79,6 +79,7 @@ CREATE TABLE "users" (
 );
 --> statement-breakpoint
 CREATE TABLE "users_course_access" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"userId" uuid NOT NULL,
 	"courseId" uuid NOT NULL,
 	"createdAt" timestamp with time zone DEFAULT now() NOT NULL,
@@ -87,6 +88,7 @@ CREATE TABLE "users_course_access" (
 );
 --> statement-breakpoint
 CREATE TABLE "user_lesson_complete" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"userId" uuid NOT NULL,
 	"lessonId" uuid NOT NULL,
 	"createdAt" timestamp with time zone DEFAULT now() NOT NULL,

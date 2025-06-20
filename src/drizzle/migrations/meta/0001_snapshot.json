@@ -1,6 +1,6 @@
 {
-  "id": "fbc28820-6d73-421d-b6a9-a6c8e04a7eac",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "ebdd00fa-7e84-4e40-bdef-835fbe78baa8",
+  "prevId": "fbc28820-6d73-421d-b6a9-a6c8e04a7eac",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -545,13 +545,6 @@
       "name": "users_course_access",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
         "userId": {
           "name": "userId",
           "type": "uuid",
