@@ -1,9 +1,7 @@
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { Suspense } from "react";
-import { UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
-import { SignInButton } from "@clerk/nextjs";
 import { getCurrentUser } from "@/services/clerk";
 import { canAccessAdminPages } from "@/app/permissions/general";
 
@@ -67,8 +65,7 @@ function Navbar() {
 }
 
 async function AdminLink() {
-  const user = await getCurrentUser({ allData: true });
-  console.log(user.user?.name);
+  const user = await getCurrentUser();
   if (!canAccessAdminPages(user)) return null;
   return (
     <Link className="hover:bg-accent/10 flex items-center px-2" href="/">
