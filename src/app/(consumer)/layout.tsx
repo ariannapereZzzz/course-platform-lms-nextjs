@@ -1,9 +1,7 @@
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { Suspense } from "react";
-import { UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
-import { SignInButton } from "@clerk/nextjs";
 import { getCurrentUser } from "@/services/clerk";
 import { canAccessAdminPages } from "@/app/permissions/general";
 

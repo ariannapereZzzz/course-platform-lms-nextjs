@@ -8,6 +8,13 @@
       "when": 1750305601100,
       "tag": "0000_wide_hercules",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1750488030322,
+      "tag": "0001_natural_starbolt",
+      "breakpoints": true
     }
   ]
 }
