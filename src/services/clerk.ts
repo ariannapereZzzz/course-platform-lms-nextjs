@@ -7,7 +7,7 @@ import { eq } from "drizzle-orm";
 
 const client = await clerkClient();
 
-export async function getCurrentUser({ allData = false }) {
+export async function getCurrentUser({ allData = false } = {}) {
   const { userId, sessionClaims, redirectToSignIn } = await auth();
 
   return {
