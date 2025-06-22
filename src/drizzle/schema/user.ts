@@ -1,4 +1,4 @@
-import { integer, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { createdAt, id, updatedAt } from "../schemaHelpers";
 import { relations } from "drizzle-orm";
 import { UserCourseAccessTable } from "./userCourseAccess";
@@ -14,7 +14,6 @@ export const UserTable = pgTable("users", {
   name: text().notNull(),
   role: userRoleEnum().notNull().default("user"),
   imageUrl: text(),
-  priceInDollars: integer(),
   deletedAt: timestamp({ withTimezone: true }),
   createdAt,
   updatedAt,
