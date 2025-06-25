@@ -61,9 +61,7 @@ export function CourseTable({
             <TableCell>
               <div className="flex gap-2">
                 <Button asChild>
-                  <Link href={`/admin/courses/just ${course.id}/edit`}>
-                    Edit
-                  </Link>
+                  <Link href={`/admin/courses/${course.id}/edit`}>Edit</Link>
                 </Button>
                 <ActionButton
                   variant="destructiveOutline"

@@ -18,6 +18,7 @@
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tabs": "^1.1.12",
     "@radix-ui/react-toast": "^1.2.14",
     "@t3-oss/env-nextjs": "^0.13.8",
     "class-variance-authority": "^0.7.1",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@tailwindcss/container-queries": "^0.1.1",
     "@types/node": "^20",
     "@types/pg": "^8.15.4",
     "@types/react": "^19",
