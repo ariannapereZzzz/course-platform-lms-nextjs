@@ -13,10 +13,8 @@ import { CourseForm } from "@/features/courses/components/CourseForm";
 import { DialogTrigger } from "@/components/ui/dialog";
 import { SectionFormDialog } from "@/features/courseSections/components/SectionFormDialog";
 import { Button } from "@/components/ui/button";
-import { EyeClosedIcon, PlusIcon, Trash2Icon } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { deleteSection } from "@/features/courseSections/actions/sections";
-import { ActionButton } from "@/components/ActionButton";
+import { SortableSectionList } from "@/features/courseSections/components/SortableSectionList";
+import { PlusIcon } from "lucide-react";
 
 export default async function EditCoursePage({
   params,
@@ -50,37 +48,10 @@ export default async function EditCoursePage({
               </SectionFormDialog>
             </CardHeader>
             <CardContent>
-              {course.courseSections.map((section) => (
-                <div key={section.id} className="flex items-center gap-1">
-                  <div
-                    className={cn(
-                      "contents",
-                      section.status === "private" && "text-muted-foreground"
-                    )}
-                  >
-                    {section.status === "private" && (
-                      <EyeClosedIcon className="size-4" />
-                    )}
-                    {section.name}
-                  </div>
-                  <SectionFormDialog section={section} courseId={courseId}>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" size="sm" className="ml-auto">
-                        Edit
-                      </Button>
-                    </DialogTrigger>
-                  </SectionFormDialog>
-                  <ActionButton
-                    action={deleteSection.bind(null, section.id)}
-                    requireAreYouSure
-                    variant="destructiveOutline"
-                    size="sm"
-                  >
-                    <Trash2Icon />
-                    <span className="sr-only">Delete</span>
-                  </ActionButton>
-                </div>
-              ))}
+              <SortableSectionList
+                courseId={courseId}
+                sections={course.courseSections}
+              />
             </CardContent>
           </Card>
         </TabsContent>
