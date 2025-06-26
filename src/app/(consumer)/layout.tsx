@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/services/clerk";
-import { canAccessAdminPages } from "@/app/permissions/general";
+import { canAccessAdminPages } from "@/permissions/general";
 
 export default function ConsumerLayout({
   children,
@@ -21,7 +21,7 @@ function Navbar() {
     <header className="flex h-12 shadow bg-background z-10">
       <nav className="flex gap-4 container">
         <Link
-          className="mr-auto text-lg hover:underline px-2 flex items-center"
+          className="mr-auto text-lg hover:underline flex items-center"
           href="/"
         >
           Web Dev Simplified
@@ -68,7 +68,7 @@ async function AdminLink() {
   const user = await getCurrentUser();
   if (!canAccessAdminPages(user)) return null;
   return (
-    <Link className="hover:bg-accent/10 flex items-center px-2" href="/">
+    <Link className="hover:bg-accent/10 flex items-center px-2" href="/admin">
       Admin
     </Link>
   );
