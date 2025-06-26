@@ -1,20 +1,23 @@
 import { PageHeader } from "@/components/PageHeader";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DialogTrigger } from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { db } from "@/drizzle/db";
 import { CourseSectionTable, CourseTable, LessonTable } from "@/drizzle/schema";
+import { CourseForm } from "@/features/courses/components/CourseForm";
 import { getCourseIdTag } from "@/features/courses/db/cache/courses";
+import { SectionFormDialog } from "@/features/courseSections/components/SectionFormDialog";
+import { SortableSectionList } from "@/features/courseSections/components/SortableSectionList";
 import { getCourseSectionCourseTag } from "@/features/courseSections/db/cache";
+import { LessonFormDialog } from "@/features/lessons/components/LessonFormDialog";
+import { SortableLessonList } from "@/features/lessons/components/SortableLessonList";
 import { getLessonCourseTag } from "@/features/lessons/db/cache/lessons";
+import { cn } from "@/lib/utils";
 import { asc, eq } from "drizzle-orm";
+import { EyeClosed, PlusIcon } from "lucide-react";
 import { cacheTag } from "next/dist/server/use-cache/cache-tag";
 import { notFound } from "next/navigation";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CourseForm } from "@/features/courses/components/CourseForm";
-import { DialogTrigger } from "@/components/ui/dialog";
-import { SectionFormDialog } from "@/features/courseSections/components/SectionFormDialog";
-import { Button } from "@/components/ui/button";
-import { SortableSectionList } from "@/features/courseSections/components/SortableSectionList";
-import { PlusIcon } from "lucide-react";
 
 export default async function EditCoursePage({
   params,
@@ -22,7 +25,6 @@ export default async function EditCoursePage({
   params: Promise<{ courseId: string }>;
 }) {
   const { courseId } = await params;
-
   const course = await getCourse(courseId);
 
   if (course == null) return notFound();
@@ -39,7 +41,7 @@ export default async function EditCoursePage({
           <Card>
             <CardHeader className="flex items-center flex-row justify-between">
               <CardTitle>Sections</CardTitle>
-              <SectionFormDialog courseId={courseId}>
+              <SectionFormDialog courseId={course.id}>
                 <DialogTrigger asChild>
                   <Button variant="outline">
                     <PlusIcon /> New Section
@@ -49,11 +51,42 @@ export default async function EditCoursePage({
             </CardHeader>
             <CardContent>
               <SortableSectionList
-                courseId={courseId}
+                courseId={course.id}
                 sections={course.courseSections}
               />
             </CardContent>
           </Card>
+          <hr className="my-2" />
+          {course.courseSections.map((section) => (
+            <Card key={section.id}>
+              <CardHeader className="flex items-center flex-row justify-between gap-4">
+                <CardTitle
+                  className={cn(
+                    "flex items-center gap-2",
+                    section.status === "private" && "text-muted-foreground"
+                  )}
+                >
+                  {section.status === "private" && <EyeClosed />} {section.name}
+                </CardTitle>
+                <LessonFormDialog
+                  defaultSectionId={section.id}
+                  sections={course.courseSections}
+                >
+                  <DialogTrigger asChild>
+                    <Button variant="outline">
+                      <PlusIcon /> New Lesson
+                    </Button>
+                  </DialogTrigger>
+                </LessonFormDialog>
+              </CardHeader>
+              <CardContent>
+                <SortableLessonList
+                  sections={course.courseSections}
+                  lessons={section.lessons}
+                />
+              </CardContent>
+            </Card>
+          ))}
         </TabsContent>
         <TabsContent value="details">
           <Card>
@@ -69,6 +102,7 @@ export default async function EditCoursePage({
 
 async function getCourse(id: string) {
   "use cache";
+
   cacheTag(
     getCourseIdTag(id),
     getCourseSectionCourseTag(id),
